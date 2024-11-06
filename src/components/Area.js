@@ -1,22 +1,25 @@
 import React from "react";
+import HostList from './HostList'
 import "../stylesheets/Area.css";
 
-function Area({area}) {
+function Area({area, hosts, onSelectedHost, hostSelectedId}) {
+
+  const areaHosts = hosts.filter(host => host.area === area.name)
+
+  console.log(hostSelectedId)
+  
+
   return (
     <div
       className="area"
       id={area.name}
     >
       <h3 className="labels">
-        {
-          area.name === 'high_plains' ? 'High Plains' :
-          area.name === 'python_pass' ? 'Python Pass' :
-          area.name === 'lowlands' ? 'Lowlands' :
-          area.name === 'badlands' ? 'Badlands' :
-          area.name === 'under_construction' ? 'Under Construction' : 'Pariah'
-        }
+        {area.name.split('_').map(string => string.charAt(0).toUpperCase() + string.slice(1)).join(' ')}
       </h3>
-      {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
+      {
+      <HostList hosts={areaHosts} onSelectedHost={onSelectedHost} hostSelectedId={hostSelectedId}/> 
+      }
     </div>
   );
 }
